@@ -1,0 +1,162 @@
+{{!============================================================================================
+
+* Project: ROOMM8 (Room and Roommate Finder for College Students & Professionals)
+* Class: CSC-648-02 Software Engineering Final Project
+* Fall 2021
+* TEAM 5 MEMBERS
+> Edward Yun,
+> Jeffrey Fullmer Gradner,
+> Adele Wu,
+> Jeff Friedrich,
+> Kris Byington,
+> Jose Quinteros
+
+* File: room-profile.hbs
+* Description: this page will display the room and all it's amenities
+
+=================================================================================================}}
+
+<div class="lg:container m-auto lg:flex">
+
+  <div class="lg:w-2/3">
+    {{!-- about listing --}}
+    <div class="card postcard p-4">
+      <img class="postRoomImage m-auto lg:m-0 object-cover w-full h-auto" src="{{currentPost.photopath}}"
+        alt="Sum Thin Wong" />
+      <div id="post_info_container" class="p-4">
+        <h3 class="name">{{currentPost.title}}</h3>
+
+        <div class="post_info_category">
+          <label class="post_label">Address: </label>
+          <span>{{currentPost.address}}</span>
+        </div>
+
+        <div class="post_info_category">
+          <label class="post_label">Rent: </label>
+          <span>${{currentPost.rent}}</span>
+        </div>
+
+        <div class="post_info_category flex">
+          <label class="post_label">Description: </label>
+          <span class="px-2">{{currentPost.description}}</span>
+        </div>
+
+        <div class="post_info_category flex">
+          <label class="post_label">Privacy: </label>
+          <span class="px-2">
+            <p id="privacy"></p>
+          </span>
+        </div>
+
+        <div class="post_info_category">
+          <label class="post_label">Listing Created: </label>
+          <span>{{currentPost.created}}</span>
+        </div>
+      </div>
+    </div>
+
+    {{!-- about host --}}
+    <div class="card postcard p-4 sm:flex">
+
+      {{!-- user photo for now --}}
+      <img class="cardImage userImage max-w-screen-lg " {{!-- src="images/uploads/posts/{{photopath}}" --}}
+        src="/images/Smiley_Face.JPG" id="{{user_id}}" alt="face" />
+
+      <div>
+        <h3 class="bold">Host Details</h3>
+        <div class="post_info_category">
+          <label class="post_label">Username: </label>
+          <span>{{currentPost.username}}</span>
+        </div>
+
+        <div class="post_info_category">
+          <label class="post_label">Name: </label>
+          <span class="">{{currentPost.first_name}}</span>
+          <span class="">{{currentPost.last_name}}</span>
+        </div>
+
+        <div class="post_info_category">
+          <label class="post_label">Gender: </label>
+          <span class="">{{currentPost.gender}}</span>
+        </div>
+
+        <div class="post_info_category">
+          <label class="post_label">Birthday: </label>
+          <span class="">{{currentPost.dob}}</span>
+        </div>
+
+        <div class="post_info_category">
+          <label class="post_label">Occupation: </label>
+          <span class="">{{currentPost.occupation}}</span>
+        </div>
+
+        <div class="post_info_category">
+          <label class="post_label">Field: </label>
+          <span class="">{{currentPost.fields}}</span>
+        </div>
+
+        <div class="post_info_category">
+          <label class="post_label">School: </label>
+          <span class="">{{currentPost.school}}</span>
+        </div>
+
+        {{!-- can remove this when we implement nodemailer to keep email private --}}
+        {{!-- email doesnt open mail --}}
+        {{!-- <div class="post_info_category">
+          <label class="post_label">Email: </label>
+          <span class=""> {{currentPost.email}} </span>
+        </div> --}}
+
+        {{!-- email link opens mail --}}
+        {{!-- <div class="post_info_category">
+          <label class="post_label">Email the host: </label>
+          <span class="">
+            <a href="mailto: {{currentPost.email}}" class="hover:text-blue-500">{{currentPost.email}}</a>
+          </span>
+        </div> --}}
+
+        {{!-- photopath for user --}}
+        {{!-- <div class="post_info_category">
+          <span class="">{{currentPost.photopath}}</span>
+        </div> --}}
+
+      </div>
+    </div>
+  </div>
+
+  {{!-- message --}}
+  <div class="card commentSection w-full lg:w-1/3 p-4">
+    <div class="myComment">
+      <form method="POST" name="postComment" class="noFormCSS" action="/post/messages">
+        <label class="">Leave a Comment:</label>
+        <textarea rows="5" id="comment" name="comment" cols="30" class="px-2"
+          placeholder="Ask a question or write a review"></textarea>
+          {{#if logged}}
+          <button class="commentButton" type="submit" value="Comment">Comment</button>
+          {{else}}
+          <button class="commentButton"><a href="/login">Log In To Comment</a></button>
+          {{/if}}   
+      </form>
+    </div>
+
+    <div class="othersComments">
+      {{#each comments}}
+      <div class="comment_container">
+        <div>{{this.description}}</span>
+          <div class="post_label text-sm">{{this.created}}</span>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  if ({{ currentPost.privacy }} == 1) {
+    document.getElementById("privacy").textContent = "Private Room";
+  }
+  if ({{ currentPost.privacy }} == 0) {
+    document.getElementById("privacy").textContent = "Shared Room";
+  }
+</script>

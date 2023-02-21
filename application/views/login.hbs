@@ -1,0 +1,53 @@
+{{!============================================================================================
+
+* Project: ROOMM8 (Room and Roommate Finder for College Students & Professionals)
+* Class: CSC-648-02 Software Engineering Final Project 
+* Fall 2021
+* TEAM 5 MEMBERS
+  > Edward Yun, 
+  > Jeffrey Fullmer Gradner, 
+  > Adele Wu, 
+  > Jeff Friedrich,
+  > Kris Byington, 
+  > Jose Quinteros
+
+* File: login.hbs
+* Description: shows the login page where the form validation is shown for existing users
+
+=================================================================================================}}
+
+
+<form
+  id="login_form"
+  action="/users/login"
+  method="POST"
+  enctype="application/x-www-form-urlencoded"
+  class="container w-screen md:w-2/3 lg:w-1/2 xl:w-2/5"
+>
+  <div class="form-validation">
+    <label for="username">Username</label>
+    <input
+      type="text"
+      class="hover_card"
+      id="username"
+      name="username"
+      placeholder="Enter username"
+      required
+    />
+  </div>
+
+  <div class="form-validation">
+    <label for="password">Password</label>
+    <input
+      type="password"
+      class="hover_card"
+      id="password"
+      name="password"
+      placeholder="Enter password"
+      required
+    />
+  </div>
+  <button>
+    <input type="submit" class="hover_card" id="login_submit" value="Submit" /></input>
+    </button>
+</form>
